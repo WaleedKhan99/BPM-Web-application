@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Availability and Payment</title>
+  <h2>Waleed Ahmed Khan</h2>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .content-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    #availability {
+      margin-bottom: 20px;
+    }
+
+    #productForm,
+    #paymentForm {
+      display: none;
+    }
+
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 20px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    button:hover {
+      background-color: #e91e63;
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .background-image {
+        display: none;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-image">
+    <img
+      src="http://source.unsplash.com/1600x800/?solid,gradient"
+      class="d-block w-100 mx-0"
+      alt="Ecommerce Background"
+    />
+  </div>
+
+  <div class="content-container">
+    <h1>Product Availability and Payment</h1>
+
+    <div id="availability">
+      <button onclick="showProductOption()">Check Product Availability</button>
+      <div id="productOption" style="display: none;">
+        <label for="productInput">Enter the product option:</label>
+        <select id="productInput">
+          <option value="apple">Apple</option>
+          <option value="mango">Mango</option>
+          <option value="orange">Orange</option>
+          <option value="banana">Banana</option>
+          <option value="pineapple">Pineapple</option>
+          <option value="peach">Peach</option>
+          <option value="pomegranate">Pomegranate</option>
+        </select>
+        <button onclick="checkAvailability()">Check Availability</button>
+      </div>
+      <p id="availabilityMessage"></p>
+    </div>
+
+    <div id="productForm">
+      <h2>Product Selection</h2>
+      <select id="productSelect">
+        <option value="apple">Apple</option>
+        <option value="mango">Mango</option>
+        <option value="orange">Orange</option>
+      </select>
+      <button onclick="makePayment()">Make Payment</button>
+    </div>
+
+    <div id="paymentForm">
+      <h2>Payment</h2>
+      <input type="radio" name="paymentOption" value="cash" checked />
+      Cash<br />
+      <input type="radio" name="paymentOption" value="creditCard" /> Credit
+      Card<br />
+      <button onclick="processPayment()">Process Payment</button>
+    </div>
+
+    <div id="paymentStatus">
+      <h2>Payment Status</h2>
+      <p id="paymentMessage"></p>
+    </div>
+  </div>
+
+  <script>
+    function showProductOption() {
+      var productOption = document.getElementById("productOption");
+      productOption.style.display = "block";
+    }
+
+    function checkAvailability() {
+      var productInput = document.getElementById("productInput");
+      var product = productInput.value.toLowerCase();
+      var availabilityMessage = document.getElementById("availabilityMessage");
+      var productForm = document.getElementById("productForm");
+
+      if (product === "apple" || product === "mango" || product === "orange") {
+        availabilityMessage.innerText = "Product available!";
+        availabilityMessage.className = "success";
+        productForm.style.display = "block";
+      } else {
+        availabilityMessage.innerText = "Product not available at this time.";
+        availabilityMessage.className = "error";
+        productForm.style.display = "none";
+      }
+    }
+
+    function makePayment() {
+      var productSelect = document.getElementById("productSelect");
+      var selectedProduct =
+        productSelect.options[productSelect.selectedIndex].text;
+      var paymentForm = document.getElementById("paymentForm");
+
+      var paymentMessage = document.getElementById("paymentMessage");
+      paymentMessage.innerText = "Selected Product: " + selectedProduct;
+
+      paymentForm.style.display = "block";
+    }
+
+    function processPayment() {
+      var paymentOption = document.querySelector(
+        'input[name="paymentOption"]:checked'
+      ).value;
+      var paymentMessage = document.getElementById("paymentMessage");
+
+      paymentMessage.innerText =
+        "Payment received! Payment option: " + paymentOption;
+    }
+  </script>
+</body>
+</html>
